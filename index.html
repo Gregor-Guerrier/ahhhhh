@@ -13,25 +13,29 @@
             color: #1f2937;
         }
         
-        /* Masonry Grid CSS for Web View */
-        .masonry {
-            column-count: 1;
-            column-gap: 1.25rem;
+        /* CSS Grid Layout - Extremely robust for printing */
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            align-items: start; /* Prevents cards from stretching to match row height */
         }
-        @media (min-width: 768px) { .masonry { column-count: 2; } }
-        @media (min-width: 1200px) { .masonry { column-count: 3; } }
+        @media (min-width: 768px) { .cheat-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1200px) { .cheat-grid { grid-template-columns: repeat(3, 1fr); } }
         
         .card {
-            break-inside: avoid; /* Prevents overlap and awkward page breaks */
+            break-inside: avoid; /* Prevents awkward page breaks inside a card */
             page-break-inside: avoid;
-            margin-bottom: 1.25rem;
-            display: inline-block;
-            width: 100%;
             background: white;
             border-radius: 0.5rem;
             border: 1px solid #e5e7eb;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             padding: 1rem;
+            width: 100%;
+        }
+
+        .full-width {
+            grid-column: 1 / -1; /* Forces card to span all available columns */
         }
 
         .section-title {
@@ -56,17 +60,18 @@
             }
             body {
                 background-color: white;
-                font-size: 10px; /* Highly dense for cheat sheet fitting */
+                font-size: 11px; /* Increased slightly for better legibility */
             }
-            .masonry {
-                column-count: 3; /* Force 3 columns in print */
-                column-gap: 0.5in;
+            .cheat-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); /* Force exactly 3 columns */
+                gap: 0.25in;
+                align-items: start;
             }
             .card {
                 box-shadow: none;
                 border: 1.5px solid #d1d5db;
                 padding: 0.75rem;
-                margin-bottom: 0.75rem;
             }
             .no-print { display: none; }
         }
@@ -78,14 +83,14 @@
         <div class="flex justify-between items-center mb-6 no-print">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900">Economics of Crime (PUBPOL 3600 / ECON 3255)</h1>
-                <p class="text-gray-600">Print to PDF (Landscape) for optimal 2-page Cheat Sheet format. Elements will not overlap.</p>
+                <p class="text-gray-600">Print to PDF (Landscape). Uses safe CSS Grid to prevent overlap and text clipping.</p>
             </div>
             <button onclick="handlePrint()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 font-medium transition">
                 🖨️ Print Cheat Sheet
             </button>
         </div>
 
-        <div class="masonry">
+        <div class="cheat-grid">
             
             <!-- FRAMEWORK & MARGINAL ANALYSIS -->
             <div class="card">
@@ -160,13 +165,13 @@
             <div class="card">
                 <h2 class="section-title">Causal Inference & Methods</h2>
                 <div class="formula">ATE = E[ Y<sub>i</sub>(1) - Y<sub>i</sub>(0) ]</div>
-                <ul class="text-xs space-y-2 mt-2">
+                <ul class="text-xs space-y-2 mt-2 mb-2">
                     <li><strong>Fundamental Problem:</strong> Cannot observe both treatment Y(1) and counterfactual Y(0) for the same entity.</li>
                     <li><strong>Selection Bias:</strong> <em>Positive</em> (highly motivated succeed anyway &rarr; overestimates effect). <em>Negative</em> (struggling participants join &rarr; underestimates effect).</li>
                     <li><strong>SUTVA:</strong> Stable Unit Treatment Value Assumption. Requires homogeneous treatment and <em>no externalities/spillovers</em> (no general equilibrium effects).</li>
                 </ul>
                 <table class="w-full text-xs mt-3 border-collapse">
-                    <tr class="border-b"><td class="py-1 font-semibold pr-2">Method</td><td class="py-1">Core Logic / Assumption</td></tr>
+                    <tr class="border-b"><td class="py-1 font-semibold pr-2 w-1/4">Method</td><td class="py-1 w-3/4">Core Logic / Assumption</td></tr>
                     <tr class="border-b"><td class="py-1 font-semibold">RCT</td><td class="py-1">Random assignment balances observables & unobservables.</td></tr>
                     <tr class="border-b"><td class="py-1 font-semibold">Observables</td><td class="py-1">Assumes <em>no unobservable confounders</em> (OVB usually remains).</td></tr>
                     <tr class="border-b"><td class="py-1 font-semibold">DiD</td><td class="py-1">Differences changes over time. Needs <em>Parallel Trends</em> assumption.</td></tr>
@@ -215,13 +220,13 @@
                 </div>
             </div>
 
-            <!-- EXAM RECOGNITION GUIDE -->
-            <div class="card col-span-1 md:col-span-2 lg:col-span-3">
+            <!-- EXAM RECOGNITION GUIDE (FULL WIDTH TO PREVENT TABLE SQUISHING) -->
+            <div class="card full-width">
                 <h2 class="section-title">Exam Question Recognition Guide</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div>
-                        <table class="w-full border-collapse">
-                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-2/5">If question mentions...</td><td class="py-1.5 italic text-gray-700">Look for these concepts...</td></tr>
+                        <table class="w-full border-collapse table-fixed">
+                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-1/3">If question mentions...</td><td class="py-1.5 italic text-gray-700 w-2/3">Look for these concepts...</td></tr>
                             <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Randomly Assigned</td><td class="py-1.5">What is random? What does it make 'as-good-as-random'? (RCT)</td></tr>
                             <tr class="border-b"><td class="py-1.5 pr-2">Reports more crime</td><td class="py-1.5">Dark figure, reporting behavior, trust. Is crime up, or just reporting?</td></tr>
                             <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Compare two groups</td><td class="py-1.5">Selection bias. What determines group membership?</td></tr>
@@ -233,8 +238,8 @@
                         </table>
                     </div>
                     <div>
-                        <table class="w-full border-collapse">
-                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-2/5">If question mentions...</td><td class="py-1.5 italic text-gray-700">Look for these concepts...</td></tr>
+                        <table class="w-full border-collapse table-fixed">
+                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-1/3">If question mentions...</td><td class="py-1.5 italic text-gray-700 w-2/3">Look for these concepts...</td></tr>
                             <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Community Policing</td><td class="py-1.5">Reporting effect. Trust. 911 / ShotSpotter ratio (Ang).</td></tr>
                             <tr class="border-b"><td class="py-1.5 pr-2">DOJ Investigation</td><td class="py-1.5">Ferguson Effect (Devi & Fryer). De-policing mechanisms.</td></tr>
                             <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Clearance Rate Falls</td><td class="py-1.5">P(catch) falls in Becker model &rarr; less deterrence &rarr; more crime.</td></tr>
@@ -277,23 +282,10 @@
 
     <script>
         function handlePrint() {
-            try {
-                // Try the native print dialog first
-                window.print();
-            } catch(e) {
-                console.log("window.print() blocked by environment", e);
-            }
-            
-            // In iframe environments, window.print() often fails silently without throwing an error.
-            // We show this modal as a fallback so the user knows exactly how to trigger it manually.
-            setTimeout(() => {
-                document.getElementById('print-modal').classList.remove('hidden');
-            }, 600);
+            try { window.print(); } catch(e) {}
+            setTimeout(() => { document.getElementById('print-modal').classList.remove('hidden'); }, 600);
         }
-
-        function closeModal() {
-            document.getElementById('print-modal').classList.add('hidden');
-        }
+        function closeModal() { document.getElementById('print-modal').classList.add('hidden'); }
     </script>
 </body>
 </html>
