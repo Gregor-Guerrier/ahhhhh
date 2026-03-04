@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics of Crime Cheat Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        /* Masonry Grid CSS for Web View */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.25rem;
+        }
+        @media (min-width: 768px) { .masonry { column-count: 2; } }
+        @media (min-width: 1200px) { .masonry { column-count: 3; } }
+        
+        .card {
+            break-inside: avoid; /* Prevents overlap and awkward page breaks */
+            page-break-inside: avoid;
+            margin-bottom: 1.25rem;
+            display: inline-block;
+            width: 100%;
+            background: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid #3b82f6; /* Blue accent */
+            color: #1e3a8a;
+        }
+
+        .highlight { color: #b91c1c; font-weight: 600; }
+        .formula { background: #f8fafc; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.8rem; display: block; margin: 0.5rem 0; color: #0f172a; border: 1px solid #e2e8f0; }
+
+        /* Print Specific Styling */
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0.4in;
+            }
+            body {
+                background-color: white;
+                font-size: 10px; /* Highly dense for cheat sheet fitting */
+            }
+            .masonry {
+                column-count: 3; /* Force 3 columns in print */
+                column-gap: 0.5in;
+            }
+            .card {
+                box-shadow: none;
+                border: 1.5px solid #d1d5db;
+                padding: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-screen-2xl mx-auto">
+        <div class="flex justify-between items-center mb-6 no-print">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Economics of Crime (PUBPOL 3600 / ECON 3255)</h1>
+                <p class="text-gray-600">Print to PDF (Landscape) for optimal 2-page Cheat Sheet format. Elements will not overlap.</p>
+            </div>
+            <button onclick="handlePrint()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 font-medium transition">
+                🖨️ Print Cheat Sheet
+            </button>
+        </div>
+
+        <div class="masonry">
+            
+            <!-- FRAMEWORK & MARGINAL ANALYSIS -->
+            <div class="card">
+                <h2 class="section-title">Framework & Marginal Analysis</h2>
+                <ul class="text-xs space-y-2">
+                    <li><strong>Social Welfare Maximization:</strong> Optimal policy occurs where <span class="highlight">MB = MC</span>.</li>
+                    <li><strong>MB Declines:</strong> Marginal Benefit of prison declines as population grows (society incarcerates the most dangerous offenders first).</li>
+                    <li>If <strong>MC > MB</strong> &rarr; Over-incarceration (Reduce).<br>If <strong>MB > MC</strong> &rarr; Under-incarceration (Increase).</li>
+                    <li><strong>Policy Question is Marginal:</strong> Not "Is prison good?" but "Does incarcerating the <em>next</em> person help?"</li>
+                    <li><strong>Sources of Policy Disagreement:</strong> Values (Normative), Data (Measurement differences), Causal Assumptions (Direction of policy effects).</li>
+                </ul>
+            </div>
+
+            <!-- MEASURING CRIME -->
+            <div class="card">
+                <h2 class="section-title">Crime Measurement</h2>
+                <ul class="text-xs space-y-2">
+                    <li><strong>UCR (Uniform Crime Reporting):</strong> Police data. Uses <em>Hierarchy Rule</em> (counts only most serious offense per incident), severely understating crime volume.</li>
+                    <li><strong>NIBRS:</strong> Replaced UCR. Detailed demographics, counts <em>all</em> offenses per incident. Created massive data gaps during the 2021 transition.</li>
+                    <li><strong>NCVS (Victimization Survey):</strong> Captures the <span class="highlight">Dark Figure</span> of unreported crime. Excludes homicides, homeless, and children &lt;12.</li>
+                    <li><strong>Homicide Primacy:</strong> Most studied crime because it is hard to hide, has a consistent definition, carries a huge VSL, and allows cross-country comparisons.</li>
+                    <li><strong>Clearance Rates:</strong> Homicide ~61.6% | Burglary & Auto ~13.5%.</li>
+                </ul>
+            </div>
+
+            <!-- MODELING CRIMINAL BEHAVIOR -->
+            <div class="card">
+                <h2 class="section-title">Modeling Criminal Behavior</h2>
+                <p class="text-xs mb-1"><strong>Becker Static Model (1968):</strong> One-time gamble.</p>
+                <div class="formula">E[U<sub>crime</sub>] = p &times; U(Y - f) + (1 - p) &times; U(Y)</div>
+                <ul class="text-xs space-y-1 mt-2 mb-2">
+                    <li><strong>p:</strong> Probability of getting caught.</li>
+                    <li><strong>Y:</strong> Payoff (monetary/psychic).</li>
+                    <li><strong>f:</strong> Penalty (fine, prison, stigma).</li>
+                    <li><strong>U():</strong> Utility function (captures risk aversion).</li>
+                </ul>
+                <p class="text-xs mb-1"><strong>Deterrence Levers:</strong></p>
+                <ul class="text-xs space-y-1 list-disc pl-4 mb-2">
+                    <li><strong>&uarr; p (Certainty):</strong> More police, surveillance, DNA databases.</li>
+                    <li><strong>&uarr; L (Length):</strong> Higher time cost (Mandatory minimums).</li>
+                    <li><strong>&uarr; f (Severity):</strong> Fines, civil disabilities, losing housing.</li>
+                    <li><strong>&darr; Y (Payoff):</strong> Disrupt stolen goods markets.</li>
+                </ul>
+                <p class="text-xs"><strong>Lee & McCrary (2017) Dynamic Model:</strong> Tests Age of Majority (18). Probability of adult charge jumps from 20% to 65%, but arrest rate doesn't change. <em>Implication:</em> Young offenders have <strong>high discount rates</strong> (myopic/ignore future costs).</p>
+            </div>
+
+            <!-- COSTS OF CRIME -->
+            <div class="card">
+                <h2 class="section-title">The Social Burden of Crime</h2>
+                <ul class="text-xs space-y-2 mb-2">
+                    <li><strong>Tangible Costs:</strong> Medical bills, lost wages, property damage.</li>
+                    <li><strong>Intangible Costs:</strong> Trauma, pain, fear. Often dwarf tangible costs in violent crimes.</li>
+                    <li><strong>Valuation Methods:</strong>
+                        <ul class="list-disc pl-4 mt-1">
+                            <li><em>Bottom-up:</em> Summing tangible + civil jury awards.</li>
+                            <li><em>Contingent Valuation:</em> Surveys of Willingness to Pay (WTP). Subject to hypothetical bias.</li>
+                            <li><em>Hedonic Pricing:</em> Real market transactions (e.g., wage premiums for risky jobs, housing prices).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="bg-gray-50 p-2 rounded text-xs border border-gray-200">
+                    <strong>Key Cost Statistics:</strong><br>
+                    &bull; <strong>VSL (Value of Statistical Life):</strong> ~$6.4M to $8M.<br>
+                    &bull; <strong>Gross Cost of Crime:</strong> $3.2 Trillion/year.<br>
+                    &bull; <strong>Net of Transfers:</strong> $1.65 Trillion/year (subtracts transfers where victim loss = offender gain, as it's not a net social loss).<br>
+                    &bull; <strong>Public Spending:</strong> ~$350 Billion (police, courts).<br>
+                    &bull; <strong>Private Spending:</strong> ~$300 Billion (security, alarms).
+                </div>
+            </div>
+
+            <!-- CAUSAL INFERENCE -->
+            <div class="card">
+                <h2 class="section-title">Causal Inference & Methods</h2>
+                <div class="formula">ATE = E[ Y<sub>i</sub>(1) - Y<sub>i</sub>(0) ]</div>
+                <ul class="text-xs space-y-2 mt-2">
+                    <li><strong>Fundamental Problem:</strong> Cannot observe both treatment Y(1) and counterfactual Y(0) for the same entity.</li>
+                    <li><strong>Selection Bias:</strong> <em>Positive</em> (highly motivated succeed anyway &rarr; overestimates effect). <em>Negative</em> (struggling participants join &rarr; underestimates effect).</li>
+                    <li><strong>SUTVA:</strong> Stable Unit Treatment Value Assumption. Requires homogeneous treatment and <em>no externalities/spillovers</em> (no general equilibrium effects).</li>
+                </ul>
+                <table class="w-full text-xs mt-3 border-collapse">
+                    <tr class="border-b"><td class="py-1 font-semibold pr-2">Method</td><td class="py-1">Core Logic / Assumption</td></tr>
+                    <tr class="border-b"><td class="py-1 font-semibold">RCT</td><td class="py-1">Random assignment balances observables & unobservables.</td></tr>
+                    <tr class="border-b"><td class="py-1 font-semibold">Observables</td><td class="py-1">Assumes <em>no unobservable confounders</em> (OVB usually remains).</td></tr>
+                    <tr class="border-b"><td class="py-1 font-semibold">DiD</td><td class="py-1">Differences changes over time. Needs <em>Parallel Trends</em> assumption.</td></tr>
+                    <tr><td class="py-1 font-semibold">IV</td><td class="py-1">Instrument affects treatment, not outcome. Yields <strong>LATE</strong> (Local ATE for "compliers").</td></tr>
+                </table>
+            </div>
+
+            <!-- CRIMINAL LEGAL SYSTEM -->
+            <div class="card">
+                <h2 class="section-title">Criminal Legal System</h2>
+                <ul class="text-xs space-y-2">
+                    <li><strong>Discretion:</strong> Shiftable power. Police choose stops/arrests; Prosecutors choose charges; Judges choose sentences.</li>
+                    <li><strong>Bail as Constrained Optimization:</strong> Judges minimize social costs of pre-trial release:</li>
+                </ul>
+                <div class="formula leading-tight">min<sub>b</sub> E[ C<sub>crime</sub> &times; P(new offense|b) + <br> C<sub>flight</sub> &times; P(flight|b) + C<sub>detention</sub> &times; P(detained|b) ]</div>
+                <ul class="text-xs space-y-2 mt-2">
+                    <li><strong>Plea Bargaining:</strong> >90% of cases end in pleas. Driven by defendants' risk aversion and the massive <span class="highlight">Trial Penalty</span> (sentences at trial are far harsher).</li>
+                    <li><strong>Juvenile Incarceration (Aizer & Doyle):</strong> Used random judge assignment (IV). Incarcerating youth <em>increases</em> adult imprisonment by 20pp (62% increase) and drops graduation rates.</li>
+                </ul>
+            </div>
+
+            <!-- POLICING: BENEFITS -->
+            <div class="card">
+                <h2 class="section-title">Policing: Staffing & Benefits</h2>
+                <ul class="text-xs space-y-2">
+                    <li><strong>The Double Dividend (Chalfin 2025):</strong> 1% &uarr; in police &rarr; significant &darr; in serious crime. Results in <em>fewer</em> serious arrests (because crimes are prevented).</li>
+                    <li><strong>Net Widening:</strong> The downside to Chalfin's dividend. While serious arrests fall, low-level "quality of life" arrests (liquor, traffic) rise drastically.</li>
+                    <li><strong>Hot Spots & Deterrence (Draca et al. 2011):</strong> London 7/7 bombings. Police surged then drawn down. Drawdown was vital to isolate police presence from psychological distress. Found 13% drop in susceptible crime.</li>
+                    <li><strong>Private Security Spillovers:</strong> Positive externalities (Lojack breaks up chop shops, helping everyone). Negative externalities (Visible alarms displace burglars to neighbors).</li>
+                </ul>
+            </div>
+
+            <!-- POLICING: COSTS & RACE -->
+            <div class="card">
+                <h2 class="section-title">Policing: Costs & Disparities</h2>
+                <ul class="text-xs space-y-2">
+                    <li><strong>Educational Collateral Costs (Ang 2020):</strong> Living within 0.5 miles of a police killing drops local HS GPAs by 0.08 SD and decreases graduation by 3.5%.</li>
+                    <li><strong>Civilian Cooperation (Ang 2025):</strong> After George Floyd, 911 calls dropped relative to ShotSpotter alerts &rarr; civilians lost trust and stopped reporting crime.</li>
+                    <li><strong>Ferguson Effect (Devi & Fryer):</strong> Viral violence + DOJ investigations lead to abrupt <em>de-policing</em> (drop in police activity), causing subsequent homicide spikes.</li>
+                    <li><strong>Commander Stops (Bacher-Hicks):</strong> Aggressive commanders increase stops and minor misdemeanor arrests, but have <em>zero effect</em> on felony crime rates.</li>
+                </ul>
+                <div class="bg-blue-50 p-2 rounded text-xs border border-blue-200 mt-2">
+                    <strong>Racial Disparities & Benchmarking:</strong><br>
+                    <strong>The Problem:</strong> Comparing arrests/force to "people stopped" is biased because the decision to stop someone is already racially biased (Selection Bias).<br>
+                    <strong>Hoekstra & Sloan (2020):</strong> Solved benchmarking by using 911 dispatch (random officer race). Found <strong>White officers use force 50-60% more</strong> than Black officers on similar calls, entirely driven by minority neighborhoods.
+                </div>
+            </div>
+
+            <!-- EXAM RECOGNITION GUIDE -->
+            <div class="card col-span-1 md:col-span-2 lg:col-span-3">
+                <h2 class="section-title">Exam Question Recognition Guide</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <table class="w-full border-collapse">
+                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-2/5">If question mentions...</td><td class="py-1.5 italic text-gray-700">Look for these concepts...</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Randomly Assigned</td><td class="py-1.5">What is random? What does it make 'as-good-as-random'? (RCT)</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Reports more crime</td><td class="py-1.5">Dark figure, reporting behavior, trust. Is crime up, or just reporting?</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Compare two groups</td><td class="py-1.5">Selection bias. What determines group membership?</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Before and After</td><td class="py-1.5">Pre-post is biased by time. Need DiD / Parallel trends.</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Judge / Lottery</td><td class="py-1.5">Instrumental Variables (IV). Relevance, Exclusion Restriction, LATE.</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Race of Officer</td><td class="py-1.5">Hoekstra & Sloan 911 dispatch design. The benchmarking problem.</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Mandatory Minimum</td><td class="py-1.5">Regression Discontinuity (RD). Severity vs Certainty. Discount rates.</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Age of 18</td><td class="py-1.5">Lee & McCrary. High discount rates (criminals are myopic).</td></tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="w-full border-collapse">
+                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-2/5">If question mentions...</td><td class="py-1.5 italic text-gray-700">Look for these concepts...</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Community Policing</td><td class="py-1.5">Reporting effect. Trust. 911 / ShotSpotter ratio (Ang).</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">DOJ Investigation</td><td class="py-1.5">Ferguson Effect (Devi & Fryer). De-policing mechanisms.</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Clearance Rate Falls</td><td class="py-1.5">P(catch) falls in Becker model &rarr; less deterrence &rarr; more crime.</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Cost per crime</td><td class="py-1.5">VSL for homicide. Intangibles dominate. Net vs Gross costs.</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Stop and Frisk</td><td class="py-1.5">Bacher-Hicks zero felony effect. Net widening effect.</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Incarceration Rate</td><td class="py-1.5">MB=MC optimality. Are we above optimal? Criminogenic effects.</td></tr>
+                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Private Security</td><td class="py-1.5">Public good problem. Arms race, Deadweight Loss, Lojack vs Alarms.</td></tr>
+                            <tr class="border-b"><td class="py-1.5 pr-2">Spillovers</td><td class="py-1.5">SUTVA violation. Educational drops (Ang). Spatial displacement.</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Print Fallback Modal -->
+    <div id="print-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 no-print">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">🖨️ Printing Instructions</h3>
+            <p class="text-gray-700 mb-4">
+                It looks like the automatic print dialog might be blocked in this secure preview environment. 
+            </p>
+            <div class="bg-blue-50 p-4 rounded-md border border-blue-200 mb-4">
+                <p class="text-sm text-blue-800 font-medium">To print, please use your keyboard shortcut:</p>
+                <ul class="list-disc pl-5 text-sm text-blue-800 mt-2">
+                    <li><strong>Windows / Chrome OS:</strong> Press <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">Ctrl</kbd> + <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">P</kbd></li>
+                    <li><strong>Mac:</strong> Press <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">⌘ Cmd</kbd> + <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">P</kbd></li>
+                </ul>
+                <p class="text-sm text-blue-800 font-medium mt-3">Or right-click anywhere on the page and select <strong>"Print..."</strong></p>
+            </div>
+            <p class="text-sm text-gray-600 mb-6 italic">Don't forget to set your printer layout to <strong>Landscape</strong>!</p>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow hover:bg-gray-300 font-medium transition">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handlePrint() {
+            try {
+                // Try the native print dialog first
+                window.print();
+            } catch(e) {
+                console.log("window.print() blocked by environment", e);
+            }
+            
+            // In iframe environments, window.print() often fails silently without throwing an error.
+            // We show this modal as a fallback so the user knows exactly how to trigger it manually.
+            setTimeout(() => {
+                document.getElementById('print-modal').classList.remove('hidden');
+            }, 600);
+        }
+
+        function closeModal() {
+            document.getElementById('print-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
