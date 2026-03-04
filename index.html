@@ -52,6 +52,13 @@
         .highlight { color: #b91c1c; font-weight: 600; }
         .formula { background: #f8fafc; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.8rem; display: block; margin: 0.5rem 0; color: #0f172a; border: 1px solid #e2e8f0; }
 
+        .exam-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) { .exam-grid { grid-template-columns: repeat(2, 1fr); } }
+
         /* Print Specific Styling */
         @media print {
             @page {
@@ -64,15 +71,23 @@
             }
             .cheat-grid {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr); /* Force exactly 3 columns */
+                grid-template-columns: repeat(3, 1fr) !important; /* Force exactly 3 columns */
                 gap: 0.25in;
                 align-items: start;
+            }
+            .exam-grid {
+                grid-template-columns: repeat(2, 1fr) !important; /* Force 2 columns */
+                gap: 0.25in;
+            }
+            .full-width {
+                grid-column: 1 / -1 !important;
             }
             .card {
                 box-shadow: none;
                 border: 1.5px solid #d1d5db;
                 padding: 0.75rem;
             }
+            table { page-break-inside: avoid; }
             .no-print { display: none; }
         }
     </style>
@@ -223,31 +238,39 @@
             <!-- EXAM RECOGNITION GUIDE (FULL WIDTH TO PREVENT TABLE SQUISHING) -->
             <div class="card full-width">
                 <h2 class="section-title">Exam Question Recognition Guide</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="exam-grid text-xs">
                     <div>
-                        <table class="w-full border-collapse table-fixed">
-                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-1/3">If question mentions...</td><td class="py-1.5 italic text-gray-700 w-2/3">Look for these concepts...</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Randomly Assigned</td><td class="py-1.5">What is random? What does it make 'as-good-as-random'? (RCT)</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Reports more crime</td><td class="py-1.5">Dark figure, reporting behavior, trust. Is crime up, or just reporting?</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Compare two groups</td><td class="py-1.5">Selection bias. What determines group membership?</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Before and After</td><td class="py-1.5">Pre-post is biased by time. Need DiD / Parallel trends.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Judge / Lottery</td><td class="py-1.5">Instrumental Variables (IV). Relevance, Exclusion Restriction, LATE.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Race of Officer</td><td class="py-1.5">Hoekstra & Sloan 911 dispatch design. The benchmarking problem.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Mandatory Minimum</td><td class="py-1.5">Regression Discontinuity (RD). Severity vs Certainty. Discount rates.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Age of 18</td><td class="py-1.5">Lee & McCrary. High discount rates (criminals are myopic).</td></tr>
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="border-b"><th class="py-1.5 font-bold text-blue-800 text-left align-top" style="width: 35%;">If question mentions...</th><th class="py-1.5 italic text-gray-700 text-left align-top" style="width: 65%;">Look for these concepts...</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Randomly Assigned</td><td class="py-1.5 align-top">What is random? What does it make 'as-good-as-random'? (RCT)</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Reports more crime</td><td class="py-1.5 align-top">Dark figure, reporting behavior, trust. Is crime up, or just reporting?</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Compare two groups</td><td class="py-1.5 align-top">Selection bias. What determines group membership?</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Before and After</td><td class="py-1.5 align-top">Pre-post is biased by time. Need DiD / Parallel trends.</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Judge / Lottery</td><td class="py-1.5 align-top">Instrumental Variables (IV). Relevance, Exclusion Restriction, LATE.</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Race of Officer</td><td class="py-1.5 align-top">Hoekstra & Sloan 911 dispatch design. The benchmarking problem.</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Mandatory Minimum</td><td class="py-1.5 align-top">Regression Discontinuity (RD). Severity vs Certainty. Discount rates.</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Age of 18</td><td class="py-1.5 align-top">Lee & McCrary. High discount rates (criminals are myopic).</td></tr>
+                            </tbody>
                         </table>
                     </div>
                     <div>
-                        <table class="w-full border-collapse table-fixed">
-                            <tr class="border-b"><td class="py-1.5 font-bold text-blue-800 w-1/3">If question mentions...</td><td class="py-1.5 italic text-gray-700 w-2/3">Look for these concepts...</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Community Policing</td><td class="py-1.5">Reporting effect. Trust. 911 / ShotSpotter ratio (Ang).</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">DOJ Investigation</td><td class="py-1.5">Ferguson Effect (Devi & Fryer). De-policing mechanisms.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Clearance Rate Falls</td><td class="py-1.5">P(catch) falls in Becker model &rarr; less deterrence &rarr; more crime.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Cost per crime</td><td class="py-1.5">VSL for homicide. Intangibles dominate. Net vs Gross costs.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Stop and Frisk</td><td class="py-1.5">Bacher-Hicks zero felony effect. Net widening effect.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Incarceration Rate</td><td class="py-1.5">MB=MC optimality. Are we above optimal? Criminogenic effects.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2">Private Security</td><td class="py-1.5">Public good problem. Arms race, Deadweight Loss, Lojack vs Alarms.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2">Spillovers</td><td class="py-1.5">SUTVA violation. Educational drops (Ang). Spatial displacement.</td></tr>
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="border-b"><th class="py-1.5 font-bold text-blue-800 text-left align-top" style="width: 35%;">If question mentions...</th><th class="py-1.5 italic text-gray-700 text-left align-top" style="width: 65%;">Look for these concepts...</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Community Policing</td><td class="py-1.5 align-top">Reporting effect. Trust. 911 / ShotSpotter ratio (Ang).</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">DOJ Investigation</td><td class="py-1.5 align-top">Ferguson Effect (Devi & Fryer). De-policing mechanisms.</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Clearance Rate Falls</td><td class="py-1.5 align-top">P(catch) falls in Becker model &rarr; less deterrence &rarr; more crime.</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Cost per crime</td><td class="py-1.5 align-top">VSL for homicide. Intangibles dominate. Net vs Gross costs.</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Stop and Frisk</td><td class="py-1.5 align-top">Bacher-Hicks zero felony effect. Net widening effect.</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Incarceration Rate</td><td class="py-1.5 align-top">MB=MC optimality. Are we above optimal? Criminogenic effects.</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Private Security</td><td class="py-1.5 align-top">Public good problem. Arms race, Deadweight Loss, Lojack vs Alarms.</td></tr>
+                                <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Spillovers</td><td class="py-1.5 align-top">SUTVA violation. Educational drops (Ang). Spatial displacement.</td></tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
