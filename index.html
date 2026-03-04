@@ -4,365 +4,433 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Economics of Crime Cheat Sheet</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
+        :root {
+            --blue:   #1e3a8a;
+            --red:    #991b1b;
+            --green:  #14532d;
+            --purple: #4c1d95;
+            --teal:   #0f4c5c;
+            --accent: #2563eb;
+            --gray:   #6b7280;
+            --light:  #f8fafc;
+            --border: #e2e8f0;
         }
 
-        .cheat-grid {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 1.5rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        .top-bar h1 { font-size: 1.25rem; font-weight: 700; color: var(--blue); }
+        .top-bar p  { font-size: 0.78rem; color: var(--gray); margin-top: 2px; }
+        .print-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(37,99,235,0.3);
+        }
+        .print-btn:hover { background: #1d4ed8; }
+
+        /* ── GRID ─────────────────────────────────────────────── */
+        .sheet {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.65rem;
             align-items: start;
         }
-        @media (min-width: 768px)  { .cheat-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1200px) { .cheat-grid { grid-template-columns: repeat(3, 1fr); } }
-
         .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.6rem 0.75rem;
             break-inside: avoid;
             page-break-inside: avoid;
-            background: white;
-            border-radius: 0.5rem;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-            padding: 1rem;
-            width: 100%;
         }
-
-        /* Full-width cards are allowed to break across pages */
-        .card.full-width {
+        .card.span3 {
+            grid-column: 1 / -1;
             break-inside: auto;
             page-break-inside: auto;
-            grid-column: 1 / -1;
         }
 
-        .section-title {
-            font-size: 0.875rem;
+        /* ── TYPOGRAPHY ───────────────────────────────────────── */
+        .card-title {
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.25rem;
-            border-bottom: 2px solid #3b82f6;
-            color: #1e3a8a;
+            letter-spacing: 0.07em;
+            color: var(--blue);
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 3px;
+            margin-bottom: 6px;
             break-after: avoid;
-            page-break-after: avoid;
+        }
+        ul { padding-left: 1rem; }
+        li { margin-bottom: 3px; line-height: 1.35; font-size: 0.72rem; }
+        li strong { color: #0f172a; }
+        p.note { font-size: 0.7rem; line-height: 1.35; margin-top: 4px; }
+
+        .hi-red    { color: var(--red);    font-weight: 600; }
+        .hi-green  { color: var(--green);  font-weight: 600; }
+        .hi-purple { color: var(--purple); font-weight: 600; }
+
+        .formula {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 3px 6px;
+            display: block;
+            margin: 4px 0;
+            color: #0f172a;
+            line-height: 1.5;
         }
 
-        .highlight  { color: #b91c1c; font-weight: 600; }
-        .formula    {
-            background: #f8fafc; padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem; font-family: monospace;
-            font-size: 0.8rem; display: block; margin: 0.5rem 0;
-            color: #0f172a; border: 1px solid #e2e8f0;
+        .callout {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 4px;
+            padding: 5px 7px;
+            font-size: 0.69rem;
+            line-height: 1.35;
+            margin-top: 5px;
+        }
+        .callout strong { color: var(--blue); }
+
+        .stat-box {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 5px 7px;
+            font-size: 0.69rem;
+            line-height: 1.5;
+            margin-top: 5px;
         }
 
-        .two-col-grid {
+        /* ── TABLES ───────────────────────────────────────────── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.69rem; margin-top: 4px; }
+        th { background: var(--blue); color: white; padding: 3px 5px; text-align: left; font-weight: 600; font-size: 0.65rem; }
+        td { padding: 2.5px 5px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.3; }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr { break-inside: avoid; page-break-inside: avoid; }
+        thead { display: table-header-group; }
+
+        /* ── ACRONYM 3-COL ────────────────────────────────────── */
+        .acro-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.3rem 1.2rem;
+            font-size: 0.69rem;
+            margin-top: 4px;
         }
-        @media (min-width: 768px) { .two-col-grid { grid-template-columns: repeat(2, 1fr); } }
+        .acro-item { line-height: 1.3; }
+        .acro-item .term { font-weight: 700; color: var(--blue); }
 
-        /* Acronym two-column layout inside card */
-        .acronym-grid {
+        /* ── RECOGNITION: 2 side-by-side tables ──────────────── */
+        .rec-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
         }
 
+        /* ── PRINT ────────────────────────────────────────────── */
         @media print {
-            @page { size: landscape; margin: 0.4in; }
+            @page { size: landscape; margin: 0.35in; }
 
-            body { background-color: white; font-size: 11px; }
+            body { background: white; padding: 0; font-size: 11px; }
 
-            /* Hide everything marked no-print — button, header bar, modal */
             .no-print { display: none !important; }
 
-            .cheat-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 0.25in;
-                align-items: start;
-            }
-            .two-col-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 0.25in;
+            .sheet {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.4rem;
             }
             .card {
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                padding: 0.45rem 0.6rem;
                 box-shadow: none;
-                border: 1.5px solid #d1d5db;
-                padding: 0.75rem;
             }
+            .card.span3 { break-inside: auto !important; page-break-inside: auto !important; }
+            .card.span3 table  { break-inside: auto; page-break-inside: auto; }
+            .card.span3 thead  { display: table-header-group; }
+            .card.span3 tr     { break-inside: avoid; page-break-inside: avoid; }
+            .card.span3 .acro-grid { break-inside: auto; page-break-inside: auto; }
+            .card.span3 .rec-grid  { break-inside: auto; page-break-inside: auto; }
 
-            /* Full-width breakable tables */
-            .card.full-width                { break-inside: auto !important; page-break-inside: auto !important; }
-            .card.full-width .two-col-grid  { break-inside: auto; page-break-inside: auto; }
-            .card.full-width table          { break-inside: auto; page-break-inside: auto; }
-            .card.full-width thead          { display: table-header-group; }
-            .card.full-width tr             { break-inside: avoid; page-break-inside: avoid; }
-
-            /* Acronym card — let it break across columns/pages naturally */
-            .card.full-width .acronym-grid  { break-inside: auto; page-break-inside: auto; }
+            /* Tighten spacing for print */
+            li    { margin-bottom: 2px; font-size: 0.68rem; }
+            .formula { font-size: 0.62rem; padding: 2px 5px; }
+            .callout, .stat-box { padding: 4px 6px; font-size: 0.66rem; }
+            table { font-size: 0.66rem; }
+            th    { font-size: 0.62rem; padding: 2px 4px; }
+            td    { padding: 2px 4px; }
+            .acro-grid { font-size: 0.66rem; gap: 0.2rem 1rem; }
+            .card-title { font-size: 0.62rem; margin-bottom: 4px; }
         }
+
+        /* Modal */
+        .modal-bg {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center; align-items: center; z-index: 50;
+        }
+        .modal-bg.open { display: flex; }
+        .modal {
+            background: white; border-radius: 10px;
+            padding: 1.5rem; max-width: 420px; width: 100%; margin: 1rem;
+        }
+        .modal h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .modal .hint { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 0.75rem; margin-bottom: 1rem; font-size: 0.85rem; }
+        .modal kbd { background: white; border: 1px solid #cbd5e1; border-radius: 3px; padding: 1px 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); font-family: monospace; }
+        .modal-close { float: right; background: #e2e8f0; border: none; padding: 0.4rem 0.9rem; border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 600; }
     </style>
 </head>
-<body class="p-4 md:p-8">
-<div class="max-w-screen-2xl mx-auto">
+<body>
 
-    <!-- Top bar — hidden on print via .no-print -->
-    <div class="flex justify-between items-center mb-6 no-print">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">Economics of Crime (PUBPOL 3600 / ECON 3255)</h1>
-            <p class="text-gray-500 text-sm mt-1">Print to PDF · Landscape · The button and this bar are hidden when printing.</p>
+<!-- Top bar — hidden on print -->
+<div class="top-bar no-print">
+    <div>
+        <h1>Economics of Crime — PUBPOL 3600 / ECON 3255</h1>
+        <p>Landscape PDF · 4 pages max · Button and this bar are hidden when printing</p>
+    </div>
+    <button class="print-btn" onclick="handlePrint()">🖨️ Print Cheat Sheet</button>
+</div>
+
+<div class="sheet">
+
+    <!-- 1. FRAMEWORK -->
+    <div class="card">
+        <div class="card-title">Framework & Marginal Analysis</div>
+        <ul>
+            <li><strong>MB = MC:</strong> Optimal policy. Not "Is prison good?" but "Does the <em>next</em> unit help?"</li>
+            <li><strong>MB Declines:</strong> Society incarcerates most dangerous first → diminishing returns.</li>
+            <li>MC &gt; MB → over-incarceration &nbsp;|&nbsp; MB &gt; MC → under-incarceration.</li>
+            <li><strong>Policy disagreement:</strong> Values (normative), Data (measurement), Causal direction.</li>
+            <li><strong>Optimal punishment:</strong> p × f = social harm of crime.</li>
+        </ul>
+        <div class="stat-box">
+            <strong>Key numbers:</strong> ~2M incarcerated · ~4.5M on probation/parole · 
+            P(prison|crime committed) ≈ <span class="hi-red">0.075</span> · 
+            Prison cost: $35k–$60k/yr · 1 in 3 Black men born 2001 expected to be imprisoned.
         </div>
-        <button onclick="handlePrint()"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 font-medium transition">
-            🖨️ Print Cheat Sheet
-        </button>
     </div>
 
-    <div class="cheat-grid">
+    <!-- 2. MEASUREMENT -->
+    <div class="card">
+        <div class="card-title">Crime Measurement</div>
+        <ul>
+            <li><strong>UCR:</strong> Police-reported. <em>Hierarchy Rule</em> = most serious offense per incident only → undercounts. Replaced by NIBRS (2021).</li>
+            <li><strong>NCVS:</strong> Victim survey. Captures <span class="hi-red">Dark Figure</span> of unreported crime. Excludes homicides, homeless, under-12.</li>
+            <li><strong>NIBRS:</strong> Records all offenses per incident; caused 2021 data gap during transition.</li>
+            <li><strong>Homicide primacy:</strong> Hard to hide, consistent definition, huge VSL, cross-country comparable. Dark figure ≈ zero.</li>
+            <li><strong>Clearance rates:</strong> Homicide ~61.6% · Burglary/auto ~13.5%.</li>
+            <li><strong>Stopping bias + recording bias:</strong> Both cause UCR to understate true crime levels.</li>
+        </ul>
+    </div>
 
-        <!-- 1. FRAMEWORK & MARGINAL ANALYSIS -->
-        <div class="card">
-            <h2 class="section-title">Framework & Marginal Analysis</h2>
-            <ul class="text-xs space-y-2">
-                <li><strong>Social Welfare Maximization:</strong> Optimal policy where <span class="highlight">MB = MC</span>.</li>
-                <li><strong>MB Declines:</strong> As prison population grows, society incarcerates most dangerous first → MB falls.</li>
-                <li>If <strong>MC &gt; MB</strong> → Over-incarceration (Reduce). &nbsp; If <strong>MB &gt; MC</strong> → Under-incarceration (Increase).</li>
-                <li><strong>Policy Question is Marginal:</strong> Not "Is prison good?" but "Does incarcerating the <em>next</em> person help?"</li>
-                <li><strong>Sources of Policy Disagreement:</strong> Values (normative), Data (measurement differences), Causal Assumptions (direction of effects).</li>
-            </ul>
+    <!-- 3. BECKER MODEL -->
+    <div class="card">
+        <div class="card-title">Becker Model (1968) & Deterrence</div>
+        <div class="formula">E[U_crime] = p·U(Y−f) + (1−p)·U(Y)  |  Commit iff E[U] > U(W)</div>
+        <ul>
+            <li><strong>p</strong> = P(caught) · <strong>Y</strong> = payoff · <strong>f</strong> = penalty · <strong>W</strong> = legal wage</li>
+            <li><strong>↑ p (certainty):</strong> Most effective — hits every term. More police, DNA, surveillance.</li>
+            <li><strong>↑ f (severity):</strong> Only effective if offender is not highly present-biased.</li>
+            <li><strong>↑ W:</strong> Employment raises legal opportunity cost → ↓ crime margin.</li>
+            <li><strong>↓ Y:</strong> Disrupt stolen goods markets.</li>
+            <li><strong>Risk averse:</strong> More deterred by f. &nbsp;<strong>Risk loving:</strong> More deterred by p.</li>
+        </ul>
+        <p class="note"><strong>Lee &amp; McCrary (2017):</strong> Age-18 → adult charge prob. jumps 20%→65%, zero arrest rate change. Youth have <span class="hi-red">high discount rates</span> → raise p, not f.</p>
+    </div>
+
+    <!-- 4. COSTS OF CRIME -->
+    <div class="card">
+        <div class="card-title">Social Burden of Crime</div>
+        <ul>
+            <li><strong>Tangible:</strong> Medical, lost wages, property damage.</li>
+            <li><strong>Intangible:</strong> Trauma, fear, PTSD. Dominate for violent crime.</li>
+            <li><strong>Hedonic / revealed preference:</strong> Labor market wage premiums → VSL. Best method (not surveys).</li>
+            <li><strong>Contingent valuation:</strong> WTP surveys. Subject to hypothetical bias.</li>
+            <li><strong>Transfers:</strong> Theft = victim loss + offender gain → net social cost is intangibles only. Homicide = no transfer; gross = net.</li>
+        </ul>
+        <div class="stat-box">
+            VSL ~$6.4M–$8M (labor market) · Gross cost ~$3.2T/yr · Net ~$1.65T/yr ·
+            Public spending ~$350B · Private security ~$300B.
         </div>
+    </div>
 
-        <!-- 2. CRIME MEASUREMENT -->
-        <div class="card">
-            <h2 class="section-title">Crime Measurement</h2>
-            <ul class="text-xs space-y-2">
-                <li><strong>UCR:</strong> Police data. <em>Hierarchy Rule</em> — counts only the most serious offense per incident → understates crime volume.</li>
-                <li><strong>NIBRS:</strong> Replaced UCR 2021. Records all offenses per incident; richer data but created a transition gap.</li>
-                <li><strong>NCVS:</strong> Victimization survey. Captures the <span class="highlight">Dark Figure</span> of unreported crime. Excludes homicides, homeless, children &lt;12.</li>
-                <li><strong>Homicide Primacy:</strong> Hard to hide, consistent definition, huge VSL, cross-country comparable.</li>
-                <li><strong>Clearance Rates:</strong> Homicide ~61.6% &nbsp;|&nbsp; Burglary &amp; Auto ~13.5%.</li>
-            </ul>
+    <!-- 5. CAUSAL INFERENCE -->
+    <div class="card">
+        <div class="card-title">Causal Inference & Methods</div>
+        <div class="formula">ATE=E[Yi(1)−Yi(0)]  ATT=E[Yi(1)−Yi(0)|Di=1]  LATE=Cov(Y,Z)/Cov(D,Z)</div>
+        <div class="formula">OVB: E[β̂] = β_true + (effect of omitted on Y)×(corr. of omitted with D)</div>
+        <ul>
+            <li><strong>SUTVA:</strong> No spillovers + homogeneous treatment.</li>
+            <li><strong>IV conditions:</strong> (1) <em>Relevance</em> — Z→D (F&gt;10, testable). (2) <em>Exclusion restriction</em> — Z affects Y only via D (untestable). LATE = compliers only.</li>
+            <li><strong>Parallel trends:</strong> Absent treatment, treated &amp; control follow same trajectory. Test: pre-period β<sub>k</sub> ≈ 0.</li>
+            <li><strong>Compliers:</strong> Take treatment iff Z=1. Always-takers and never-takers excluded from LATE.</li>
+        </ul>
+        <table>
+            <tr><th>Method</th><th>Key assumption</th><th>Estimand</th></tr>
+            <tr><td>RCT</td><td>Random assignment</td><td>ATE</td></tr>
+            <tr><td>DiD</td><td>Parallel trends</td><td>ATT</td></tr>
+            <tr><td>IV</td><td>Relevance + exclusion</td><td>LATE</td></tr>
+            <tr><td>RD</td><td>Continuity at threshold</td><td>LATE at cutoff</td></tr>
+        </table>
+    </div>
+
+    <!-- 6. LEGAL SYSTEM -->
+    <div class="card">
+        <div class="card-title">Criminal Legal System</div>
+        <div class="formula">min_b E[C_crime·P(offense|b) + C_flight·P(flight|b) + C_detain·P(detained|b)]</div>
+        <ul>
+            <li><strong>Discretion compounds:</strong> Police (stops) → Prosecutor (charges) → Judge (sentences). Small bias at each stage → large final disparity.</li>
+            <li><strong>Plea bargaining:</strong> &gt;90% of cases. Risk aversion + <span class="hi-red">Trial Penalty</span> → pleas even when innocent.</li>
+            <li><strong>Collateral consequences:</strong> Employment, housing, voting rights lost → ↑ recidivism via ↓ W.</li>
+            <li><strong>Aizer &amp; Doyle (judge IV):</strong> Juvenile incarceration → +20pp adult prison (+62%), ↓ graduation. Criminogenic for marginal youth.</li>
+            <li><strong>RD on mandatory mins:</strong> Test manipulation with McCrary density test (histogram of running var).</li>
+        </ul>
+    </div>
+
+    <!-- 7. POLICING: BENEFITS -->
+    <div class="card">
+        <div class="card-title">Policing: Staffing & Benefits</div>
+        <ul>
+            <li><strong>Chalfin (2025):</strong> 1% ↑ officers → ↓ serious crime + ↓ serious arrests (prevention). But ↑ low-level arrests = <span class="hi-red">net widening</span>.</li>
+            <li><strong>Draca et al. (2011) — London 7/7:</strong> Surge then drawdown. Distress persisted; only police reversed → clean deterrence. 13% drop in susceptible crime.</li>
+            <li><strong>Hot spots:</strong> ~1–3% of blocks = ~50% of crime. <em>Diffusion of benefits</em> → crime doesn't fully displace.</li>
+            <li><strong>LoJack (Ayres &amp; Levitt 1998):</strong> Hidden GPS = <span class="hi-green">positive externality</span>. All cars benefit; non-buyers free-ride → underprovided → subsidy justified.</li>
+            <li><strong>Visible alarms:</strong> <span class="hi-red">Negative externality</span> — displace burglars to neighbors. No net social benefit.</li>
+        </ul>
+    </div>
+
+    <!-- 8. POLICING: COSTS & RACE -->
+    <div class="card">
+        <div class="card-title">Policing: Costs & Disparities</div>
+        <ul>
+            <li><strong>Ang (2020):</strong> Within 0.5mi of police killing → GPA −0.08 SD, grad −3.5pp. Mechanism: stress, alienation.</li>
+            <li><strong>Geller et al. (2014):</strong> Stops → PTSD in individuals + family members.</li>
+            <li><strong>Ang et al. (2025):</strong> Post-George Floyd, 911/ShotSpotter ratio ↓ → trust eroded, reporting collapsed.</li>
+            <li><strong>Ferguson Effect (Devi &amp; Fryer):</strong> DOJ investigations → de-policing → homicide spike. Event study confirms causal chain.</li>
+            <li><strong>Bacher-Hicks:</strong> Aggressive commanders ↑ stops → zero felony effect. Large community cost, zero serious crime benefit.</li>
+        </ul>
+        <div class="callout">
+            <strong>Benchmarking problem:</strong> Conditioning on "people stopped" is circular — stops are already biased.<br>
+            <strong>Hoekstra &amp; Sloan (2020):</strong> 911 dispatch rotation → officer race random (beat×time FE). White officers use <strong>50–60% more force</strong> on identical calls, in minority neighborhoods.
         </div>
+    </div>
 
-        <!-- 3. BECKER MODEL -->
-        <div class="card">
-            <h2 class="section-title">Modeling Criminal Behavior (Becker 1968)</h2>
-            <div class="formula">E[U<sub>crime</sub>] = p × U(Y − f) + (1 − p) × U(Y) &nbsp;|&nbsp; Commit iff &gt; U(W)</div>
-            <ul class="text-xs space-y-1 mt-1 mb-2">
-                <li><strong>p</strong> = probability of being caught &nbsp;|&nbsp; <strong>Y</strong> = payoff &nbsp;|&nbsp; <strong>f</strong> = penalty &nbsp;|&nbsp; <strong>W</strong> = legal wage</li>
-            </ul>
-            <p class="text-xs font-semibold mb-1">Deterrence Levers:</p>
-            <ul class="text-xs space-y-1 list-disc pl-4 mb-2">
-                <li><strong>↑ p (Certainty):</strong> More police, surveillance, DNA. <em>Most effective for high-discount-rate offenders.</em></li>
-                <li><strong>↑ f (Severity):</strong> Fines, longer sentences, civil consequences.</li>
-                <li><strong>↓ Y (Payoff):</strong> Disrupt stolen goods markets.</li>
-                <li><strong>↑ W (Legal wage):</strong> Employment programs raise opportunity cost.</li>
-            </ul>
-            <p class="text-xs"><strong>Lee &amp; McCrary (2017):</strong> Age-18 threshold — adult charge prob. jumps 20%→65%, but arrest rate unchanged. Youth have <strong>high discount rates</strong>: raise <em>p</em>, not <em>f</em>.</p>
+    <!-- 9. ACRONYM GLOSSARY — spans all 3 cols -->
+    <div class="card span3">
+        <div class="card-title">Acronym & Key Term Glossary</div>
+        <div class="acro-grid">
+            <div class="acro-item"><span class="term">ATE</span> — Avg Treatment Effect: E[Yi(1)−Yi(0)]. All units.</div>
+            <div class="acro-item"><span class="term">ATT</span> — ATE on the Treated: effect for Di=1 only. Use for voluntary programs.</div>
+            <div class="acro-item"><span class="term">LATE</span> — Local ATE: IV estimate for <em>compliers only</em>. LATE ≠ ATE unless all comply.</div>
+            <div class="acro-item"><span class="term">OVB</span> — Omitted Variable Bias: excluded var correlated with both D and Y.</div>
+            <div class="acro-item"><span class="term">SUTVA</span> — Stable Unit Treatment Value Assumption: (1) no spillovers; (2) homogeneous treatment.</div>
+            <div class="acro-item"><span class="term">DiD / DID</span> — Difference-in-Differences: (Y_T,post−Y_T,pre)−(Y_C,post−Y_C,pre). Needs parallel trends.</div>
+            <div class="acro-item"><span class="term">RD</span> — Regression Discontinuity: compare units just above/below threshold. Low external validity.</div>
+            <div class="acro-item"><span class="term">RCT</span> — Randomized Controlled Trial: random assignment → ATE. Gold standard.</div>
+            <div class="acro-item"><span class="term">IV</span> — Instrumental Variable: Z→D but Z↛Y directly. Needs relevance (F&gt;10) + exclusion restriction.</div>
+            <div class="acro-item"><span class="term">TWFE</span> — Two-Way Fixed Effects: unit FE + time FE. Biased under staggered timing + heterogeneous effects.</div>
+            <div class="acro-item"><span class="term">FE</span> — Fixed Effects: controls for time-invariant unit traits. Beat×time FE key to Hoekstra &amp; Sloan.</div>
+            <div class="acro-item"><span class="term">OLS</span> — Ordinary Least Squares: unbiased only if no unobserved confounders correlated with treatment.</div>
+            <div class="acro-item"><span class="term">UCR</span> — Uniform Crime Reporting: legacy FBI (1930–2021). Hierarchy rule. Police-reported only.</div>
+            <div class="acro-item"><span class="term">NIBRS</span> — National Incident-Based Reporting: replaced UCR 2021. All offenses per incident.</div>
+            <div class="acro-item"><span class="term">NCVS</span> — National Crime Victimization Survey: household survey capturing unreported crime.</div>
+            <div class="acro-item"><span class="term">VSL</span> — Value of Statistical Life: ~$6.4M–$8M from labor market wage premiums. NOT surveys.</div>
+            <div class="acro-item"><span class="term">WTP</span> — Willingness to Pay: max $ to avoid harm. Contingent valuation. Subject to hypothetical bias.</div>
+            <div class="acro-item"><span class="term">DWL</span> — Deadweight Loss: social waste from offense/defense arms race; no net value produced.</div>
+            <div class="acro-item"><span class="term">MB / MC</span> — Marginal Benefit / Cost: optimal policy at MB=MC. U.S. incarceration likely MC&gt;MB at margin.</div>
+            <div class="acro-item"><span class="term">GE</span> — General Equilibrium: economy-wide spillovers; classic SUTVA violation (LoJack, job training).</div>
+            <div class="acro-item"><span class="term">DOJ</span> — Dept. of Justice: pattern-or-practice investigations → Ferguson Effect (Devi &amp; Fryer).</div>
+            <div class="acro-item"><span class="term">ROR</span> — Release on Recognizance: pre-trial release, no financial conditions, signed promise to appear.</div>
+            <div class="acro-item"><span class="term">BW</span> — Broken Windows: targeting minor disorder prevents serious crime. Challenged by Bacher-Hicks (zero felony effect).</div>
+            <div class="acro-item"><span class="term">PTSD</span> — Post-Traumatic Stress Disorder: documented cost of aggressive policing (Geller et al. 2014).</div>
+            <div class="acro-item"><span class="term">EU</span> — Expected Utility: probability-weighted utility. Core of Becker rational-actor model.</div>
+            <div class="acro-item"><span class="term">GPA</span> — Grade Point Average: proxy for education cost of policing. Falls −0.08 SD within 0.5mi of killing (Ang 2020).</div>
+            <div class="acro-item"><span class="term">McCrary test</span> — Density test of running variable at RD threshold. Discontinuity → manipulation → RD invalid.</div>
         </div>
+    </div>
 
-        <!-- 4. COSTS OF CRIME -->
-        <div class="card">
-            <h2 class="section-title">Social Burden of Crime</h2>
-            <ul class="text-xs space-y-1 mb-2">
-                <li><strong>Tangible:</strong> Medical, lost wages, property. &nbsp;<strong>Intangible:</strong> Trauma, fear, PTSD — often dwarf tangibles.</li>
-                <li><strong>Bottom-up:</strong> Tangibles + jury awards. &nbsp;<strong>Contingent Valuation:</strong> Survey WTP (hypothetical bias). &nbsp;<strong>Hedonic:</strong> Wage premiums, housing prices.</li>
-            </ul>
-            <div class="bg-gray-50 p-2 rounded text-xs border border-gray-200 mb-2">
-                <strong>Key Numbers:</strong><br>
-                · <strong>VSL:</strong> ~$6.4M–$8M (revealed preferences, labor markets — <em>not</em> surveys).<br>
-                · <strong>Gross cost of crime:</strong> ~$3.2T/yr &nbsp;|&nbsp; <strong>Net (minus transfers):</strong> ~$1.65T/yr.<br>
-                · <strong>Public spending:</strong> ~$350B &nbsp;|&nbsp; <strong>Private security:</strong> ~$300B.<br>
-                · <strong>Prison cost:</strong> ~$35k–$60k/inmate/yr.
-            </div>
-            <p class="text-xs"><strong>Transfers:</strong> In theft, victim's loss = offender's gain → not a net social loss. Subtract from gross to get net cost. Homicide: no transfer, gross = net.</p>
-        </div>
-
-        <!-- 5. CAUSAL INFERENCE -->
-        <div class="card">
-            <h2 class="section-title">Causal Inference & Methods</h2>
-            <div class="formula">ATE = E[Yi(1)−Yi(0)] &nbsp;|&nbsp; ATT = E[Yi(1)−Yi(0) | Di=1] &nbsp;|&nbsp; LATE = Cov(Y,Z)/Cov(D,Z)</div>
-            <ul class="text-xs space-y-1 mt-2 mb-2">
-                <li><strong>Fundamental Problem:</strong> Can't observe Y(1) and Y(0) for same unit simultaneously.</li>
-                <li><strong>OVB:</strong> E[β̂] = β<sub>true</sub> + (effect of omitted on Y) × (corr. of omitted with D).</li>
-                <li><strong>SUTVA:</strong> No spillovers between units + homogeneous treatment.</li>
-                <li><strong>IV conditions:</strong> (1) <em>Relevance</em> — Z predicts D (F&gt;10). (2) <em>Exclusion restriction</em> — Z affects Y only through D (untestable, argued theoretically). LATE = effect for <strong>compliers</strong> only.</li>
-                <li><strong>Parallel Trends (DID):</strong> Absent treatment, treated &amp; control would have followed the same trajectory. Test with flat pre-period event study coefficients.</li>
-            </ul>
-            <table class="w-full text-xs border-collapse">
-                <tr class="border-b bg-gray-50"><td class="py-1 pr-2 font-semibold w-1/5">RCT</td><td class="py-1">Random assignment → ATE. Gold standard. Watch for non-compliance/attrition.</td></tr>
-                <tr class="border-b"><td class="py-1 pr-2 font-semibold">DiD</td><td class="py-1">Parallel trends req'd. Event study tests pre-trends. TWFE biased with staggered timing.</td></tr>
-                <tr class="border-b bg-gray-50"><td class="py-1 pr-2 font-semibold">IV</td><td class="py-1">Relevance + exclusion restriction. LATE ≠ ATE — specify compliers.</td></tr>
-                <tr><td class="py-1 pr-2 font-semibold">RD</td><td class="py-1">Just above/below threshold. High internal, very low external validity. McCrary density test for manipulation.</td></tr>
+    <!-- 10. RECOGNITION GUIDE — spans all 3 cols -->
+    <div class="card span3">
+        <div class="card-title">Exam Question Recognition Guide</div>
+        <div class="rec-grid">
+            <table>
+                <thead><tr><th style="width:32%">If question mentions…</th><th>Look for…</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Randomly assigned</strong></td><td>What is random? What does it make as-good-as-random? State ATE/ATT/LATE + name compliers.</td></tr>
+                    <tr><td><strong>Reports more crime</strong></td><td>Dark figure, reporting behavior, trust. Is crime actually up, or just reporting rate?</td></tr>
+                    <tr><td><strong>Compare two groups</strong></td><td>Selection bias. What determines membership? Positive (motivated) or negative (desperate) selection?</td></tr>
+                    <tr><td><strong>Before and after</strong></td><td>Pre-post biased by time trends. Need DiD + parallel trends. Who is control group?</td></tr>
+                    <tr><td><strong>Judge / lottery</strong></td><td>IV: (1) Relevance, (2) Exclusion restriction, (3) LATE — name the compliers explicitly.</td></tr>
+                    <tr><td><strong>Race of officer</strong></td><td>Hoekstra &amp; Sloan 911 dispatch. Benchmark contamination — stop decision already biased.</td></tr>
+                    <tr><td><strong>Mandatory minimum</strong></td><td>RD design. Severity vs. certainty. High discount rates. Lee &amp; McCrary. McCrary density test.</td></tr>
+                    <tr><td><strong>Age of 18</strong></td><td>Lee &amp; McCrary. High discount rates — raise p (certainty), not f (severity).</td></tr>
+                    <tr><td><strong>No relationship in data</strong></td><td>OVB / simultaneity. Name omitted variable. Sign of bias = sign(effect on Y) × sign(corr with D).</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead><tr><th style="width:32%">If question mentions…</th><th>Look for…</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Community policing</strong></td><td>Reporting effect. Trust building. 911/ShotSpotter ratio (Ang et al. 2025).</td></tr>
+                    <tr><td><strong>DOJ investigation</strong></td><td>Ferguson Effect (Devi &amp; Fryer). De-policing mechanism. Event study design.</td></tr>
+                    <tr><td><strong>Clearance rate falls</strong></td><td>P(catch) falls in Becker → less deterrence → crime rises. Affects p lever.</td></tr>
+                    <tr><td><strong>Cost per crime</strong></td><td>VSL (~$8M) for homicide. Intangibles dominate. Net vs. Gross cost distinction.</td></tr>
+                    <tr><td><strong>Stop and frisk</strong></td><td>Bacher-Hicks: zero felony effect. Net widening. Community costs (Geller, Ang).</td></tr>
+                    <tr><td><strong>Incarceration rate</strong></td><td>MB = MC optimality. U.S. likely above optimal. Criminogenic at margin (Aizer &amp; Doyle).</td></tr>
+                    <tr><td><strong>Private security</strong></td><td>Public good problem. Arms race DWL. LoJack (positive extern.) vs. alarms (negative).</td></tr>
+                    <tr><td><strong>Spillovers</strong></td><td>SUTVA violation. Displacement vs. diffusion of benefits. GE effects.</td></tr>
+                    <tr><td><strong>Parallel trends</strong></td><td>State counterfactually. Test with flat pre-period event study coefficients β_k ≈ 0 for k&lt;0.</td></tr>
+                </tbody>
             </table>
         </div>
+    </div>
 
-        <!-- 6. CRIMINAL LEGAL SYSTEM -->
-        <div class="card">
-            <h2 class="section-title">Criminal Legal System</h2>
-            <div class="formula" style="font-size:0.72rem">min<sub>b</sub> E[ C<sub>crime</sub>·P(offense|b) + C<sub>flight</sub>·P(flight|b) + C<sub>detain</sub>·P(detained|b) ]</div>
-            <ul class="text-xs space-y-1 mt-2">
-                <li><strong>Discretion compounds:</strong> Police (stops) → Prosecutor (charges) → Judge (sentence). Small bias at each stage → large final disparity.</li>
-                <li><strong>Plea Bargaining:</strong> &gt;90% of cases. Risk aversion + massive <span class="highlight">Trial Penalty</span> → defendants plead even if innocent.</li>
-                <li><strong>Mandatory minimums:</strong> Sharp sentence discontinuities → used as natural experiments (RD design).</li>
-                <li><strong>Collateral consequences:</strong> Lost employment, housing, voting rights → criminogenic post-release → ↓ legal wage W → ↑ recidivism in Becker model.</li>
-                <li><strong>Aizer &amp; Doyle (Judge IV):</strong> Juvenile incarceration → +20pp adult prison (+62%), ↓ graduation. Criminogenic for marginal youth.</li>
-                <li><strong>P(prison|crime):</strong> P(rep.)×P(arr.)×P(conv.)×P(prison|conv.) ≈ <strong>0.075</strong>. Only 1 in 13 violent crimes → prison.</li>
-            </ul>
-        </div>
+</div><!-- end sheet -->
 
-        <!-- 7. POLICING: BENEFITS -->
-        <div class="card">
-            <h2 class="section-title">Policing: Staffing & Benefits</h2>
-            <ul class="text-xs space-y-2">
-                <li><strong>Double Dividend (Chalfin 2025):</strong> 1% ↑ officers → ↓ serious crime AND ↓ serious arrests (prevention, not just enforcement). But ↑ low-level arrests = <strong>net widening</strong>.</li>
-                <li><strong>Draca et al. (2011) — London 7/7:</strong> Police surge then 6-week drawdown. Distress &amp; economic disruption persisted; only police reversed → clean isolation of deterrence effect. Found 13% drop in susceptible crime.</li>
-                <li><strong>Hot Spots:</strong> ~1–3% of blocks generate ~50% of crime. Diffusion of benefits → crime often doesn't fully displace to nearby areas.</li>
-                <li><strong>LoJack (Ayres &amp; Levitt 1998):</strong> Hidden GPS = <em>positive externality</em>. All cars benefit; non-buyers free-ride → underprovided by market → justifies subsidy.</li>
-                <li><strong>Visible alarms:</strong> <em>Negative externality</em> — displace burglars to neighbors. No net social benefit.</li>
-            </ul>
+<!-- Modal — hidden on print via .no-print -->
+<div class="modal-bg no-print" id="modal">
+    <div class="modal">
+        <h3>🖨️ Print Instructions</h3>
+        <div class="hint">
+            <strong>Windows:</strong> <kbd>Ctrl</kbd> + <kbd>P</kbd> &nbsp;|&nbsp;
+            <strong>Mac:</strong> <kbd>⌘</kbd> + <kbd>P</kbd><br>
+            <br>Set layout to <strong>Landscape</strong> in the print dialog.
         </div>
-
-        <!-- 8. POLICING: COSTS & DISPARITIES -->
-        <div class="card">
-            <h2 class="section-title">Policing: Costs & Disparities</h2>
-            <ul class="text-xs space-y-2">
-                <li><strong>Ang (2020):</strong> Within 0.5mi of police killing → GPA −0.08 SD (sustained), graduation −3.5pp. Mechanism: stress, distraction, institutional alienation.</li>
-                <li><strong>Geller et al. (2014):</strong> Stops → PTSD in stopped individuals AND family members.</li>
-                <li><strong>Ang et al. (2025):</strong> Post-George Floyd, 911/ShotSpotter ratio fell → trust eroded, reporting collapsed.</li>
-                <li><strong>Ferguson Effect (Devi &amp; Fryer):</strong> DOJ investigation → de-policing → homicide spike. Event study confirms causal chain.</li>
-                <li><strong>Bacher-Hicks:</strong> Aggressive commanders ↑ stops → zero felony effect. Large community cost, near-zero serious crime benefit.</li>
-            </ul>
-            <div class="bg-blue-50 p-2 rounded text-xs border border-blue-200 mt-2">
-                <strong>Racial Disparities &amp; Benchmarking:</strong><br>
-                <strong>Problem:</strong> Conditioning on "people stopped" is circular — that decision is already biased.<br>
-                <strong>Hoekstra &amp; Sloan (2020):</strong> 911 dispatch rotation → officer race random (beat×time FE). <strong>White officers use 50–60% more force</strong> on identical calls, concentrated in minority neighborhoods.
-            </div>
-        </div>
-
-        <!-- 9. ACRONYM GLOSSARY — full-width, two-column inside -->
-        <div class="card full-width">
-            <h2 class="section-title">Acronym & Key Term Glossary</h2>
-            <div class="acronym-grid text-xs">
-                <!-- Left column -->
-                <div class="space-y-1">
-                    <div><span class="font-bold text-blue-800">ATE</span> — <em>Average Treatment Effect.</em> E[Yi(1)−Yi(0)] across all units.</div>
-                    <div><span class="font-bold text-blue-800">ATT</span> — <em>ATE on the Treated.</em> Effect for treated units only (Di=1). Use for voluntary programs.</div>
-                    <div><span class="font-bold text-blue-800">LATE</span> — <em>Local Average Treatment Effect.</em> IV estimate; effect for <strong>compliers only</strong>. LATE ≠ ATE unless all are compliers.</div>
-                    <div><span class="font-bold text-blue-800">OVB</span> — <em>Omitted Variable Bias.</em> Excluded variable correlated with both treatment and outcome.</div>
-                    <div><span class="font-bold text-blue-800">SUTVA</span> — <em>Stable Unit Treatment Value Assumption.</em> (1) No spillovers; (2) Homogeneous treatment across all recipients.</div>
-                    <div><span class="font-bold text-blue-800">DiD / DID</span> — <em>Difference-in-Differences.</em> (Y<sub>T,post</sub>−Y<sub>T,pre</sub>) − (Y<sub>C,post</sub>−Y<sub>C,pre</sub>). Requires parallel trends.</div>
-                    <div><span class="font-bold text-blue-800">RD</span> — <em>Regression Discontinuity.</em> Compares units just above/below a threshold. High internal, low external validity.</div>
-                    <div><span class="font-bold text-blue-800">RCT</span> — <em>Randomized Controlled Trial.</em> Random assignment → balances observables &amp; unobservables. Gold standard.</div>
-                    <div><span class="font-bold text-blue-800">IV</span> — <em>Instrumental Variables.</em> Z shifts D but not Y directly. Needs relevance (F&gt;10) + exclusion restriction.</div>
-                    <div><span class="font-bold text-blue-800">TWFE</span> — <em>Two-Way Fixed Effects.</em> Unit FE + time FE. Biased with staggered treatment timing + heterogeneous effects.</div>
-                    <div><span class="font-bold text-blue-800">UCR</span> — <em>Uniform Crime Reporting.</em> Legacy FBI program (1930–2021). Hierarchy rule. Police-reported only.</div>
-                    <div><span class="font-bold text-blue-800">NIBRS</span> — <em>National Incident-Based Reporting System.</em> Replaced UCR 2021. All offenses per incident.</div>
-                    <div><span class="font-bold text-blue-800">NCVS</span> — <em>National Crime Victimization Survey.</em> Household survey. Captures unreported crime. No homicide/homeless/under-12.</div>
-                </div>
-                <!-- Right column -->
-                <div class="space-y-1">
-                    <div><span class="font-bold text-blue-800">VSL</span> — <em>Value of Statistical Life.</em> ~$6.4M–$8M (2010$). From revealed preferences (labor market wage premiums). NOT surveys.</div>
-                    <div><span class="font-bold text-blue-800">WTP</span> — <em>Willingness to Pay.</em> Max $ a person would pay to avoid a harm. Basis for contingent valuation. Subject to hypothetical bias.</div>
-                    <div><span class="font-bold text-blue-800">DWL</span> — <em>Deadweight Loss.</em> Social waste from crime: resources spent on offense/defense produce no net value.</div>
-                    <div><span class="font-bold text-blue-800">MB / MC</span> — <em>Marginal Benefit / Marginal Cost.</em> Optimal policy: MB = MC. U.S. incarceration likely above optimum (MC &gt; MB at margin).</div>
-                    <div><span class="font-bold text-blue-800">ROR</span> — <em>Release on Recognizance.</em> Pre-trial release with no financial conditions; signed promise to appear.</div>
-                    <div><span class="font-bold text-blue-800">DOJ</span> — <em>Department of Justice.</em> Conducts pattern-or-practice investigations of police departments.</div>
-                    <div><span class="font-bold text-blue-800">GE</span> — <em>General Equilibrium.</em> Economy-wide spillover effects. Classic SUTVA violation (e.g., LoJack, job training displacement).</div>
-                    <div><span class="font-bold text-blue-800">OLS</span> — <em>Ordinary Least Squares.</em> Standard regression. Unbiased only if no unobserved confounders correlated with treatment.</div>
-                    <div><span class="font-bold text-blue-800">BW</span> — <em>Broken Windows.</em> Policing theory: targeting minor disorder prevents serious crime. Challenged by Bacher-Hicks (zero felony effect).</div>
-                    <div><span class="font-bold text-blue-800">PTSD</span> — <em>Post-Traumatic Stress Disorder.</em> Documented community mental health cost of aggressive policing (Geller et al. 2014).</div>
-                    <div><span class="font-bold text-blue-800">GPA</span> — <em>Grade Point Average.</em> Falls −0.08 SD within 0.5mi of police killing (Ang 2020). Proxy for education cost of policing.</div>
-                    <div><span class="font-bold text-blue-800">EU</span> — <em>Expected Utility.</em> Probability-weighted average utility. Core of Becker rational-actor crime model.</div>
-                    <div><span class="font-bold text-blue-800">FE</span> — <em>Fixed Effects.</em> Controls for time-invariant unit characteristics. Beat×time FE key to Hoekstra &amp; Sloan identification.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 10. EXAM RECOGNITION GUIDE — full-width, breakable tables -->
-        <div class="card full-width">
-            <h2 class="section-title">Exam Question Recognition Guide</h2>
-            <div class="two-col-grid text-xs">
-                <div>
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="py-1.5 font-bold text-blue-800 text-left align-top" style="width:35%;">If question mentions…</th>
-                                <th class="py-1.5 italic text-gray-600 text-left align-top" style="width:65%;">Look for these concepts…</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Randomly assigned</td><td class="py-1.5 align-top">What is random? What does it make as-good-as-random? (RCT / LATE + name compliers)</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Reports more crime</td><td class="py-1.5 align-top">Dark figure, reporting behavior, trust. Is crime actually up, or just reporting?</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Compare two groups</td><td class="py-1.5 align-top">Selection bias. What determines group membership? Is it endogenous?</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Before and after</td><td class="py-1.5 align-top">Pre-post biased by time trends. Need DiD + parallel trends. Who is control group?</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Judge / lottery</td><td class="py-1.5 align-top">IV: (1) Relevance, (2) Exclusion restriction, (3) LATE — name the compliers explicitly.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Race of officer</td><td class="py-1.5 align-top">Hoekstra &amp; Sloan 911 dispatch. Benchmark contamination — stop decision already biased.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Mandatory minimum</td><td class="py-1.5 align-top">RD design. Severity vs. certainty. High discount rates. Lee &amp; McCrary.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Age of 18</td><td class="py-1.5 align-top">Lee &amp; McCrary. High discount rates — raise p (certainty), not f (severity).</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">No relationship in data</td><td class="py-1.5 align-top">OVB / simultaneity bias. Name the omitted variable and direction of bias.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="py-1.5 font-bold text-blue-800 text-left align-top" style="width:35%;">If question mentions…</th>
-                                <th class="py-1.5 italic text-gray-600 text-left align-top" style="width:65%;">Look for these concepts…</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Community policing</td><td class="py-1.5 align-top">Reporting effect. Trust building. 911/ShotSpotter ratio (Ang et al. 2025).</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">DOJ investigation</td><td class="py-1.5 align-top">Ferguson Effect (Devi &amp; Fryer). De-policing mechanism. Event study design.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Clearance rate falls</td><td class="py-1.5 align-top">P(catch) falls in Becker model → less deterrence → crime rises at margin.</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Cost per crime</td><td class="py-1.5 align-top">VSL (~$8M) for homicide. Intangibles dominate. Net vs. Gross cost distinction.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Stop and frisk</td><td class="py-1.5 align-top">Bacher-Hicks: zero felony effect. Net widening. Community costs (Geller, Ang).</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Incarceration rate</td><td class="py-1.5 align-top">MB = MC optimality. U.S. likely above optimal. Criminogenic at margin (Aizer &amp; Doyle).</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Private security</td><td class="py-1.5 align-top">Public good problem. Arms race DWL. LoJack (positive extern.) vs. alarms (negative).</td></tr>
-                            <tr class="border-b"><td class="py-1.5 pr-2 align-top font-medium">Spillovers</td><td class="py-1.5 align-top">SUTVA violation. Displacement vs. diffusion of benefits. GE effects.</td></tr>
-                            <tr class="border-b bg-gray-50"><td class="py-1.5 pr-2 align-top font-medium">Parallel trends</td><td class="py-1.5 align-top">State counterfactually. Tested by flat pre-period event study coefficients (β<sub>k</sub> ≈ 0 for k&lt;0).</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div><!-- end cheat-grid -->
-</div><!-- end max-w -->
-
-<!-- Print modal — hidden on print via .no-print -->
-<div id="print-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 no-print">
-    <div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
-        <h3 class="text-xl font-bold text-gray-900 mb-4">🖨️ Printing Instructions</h3>
-        <div class="bg-blue-50 p-4 rounded-md border border-blue-200 mb-4">
-            <p class="text-sm text-blue-800 font-medium">Use your keyboard shortcut:</p>
-            <ul class="list-disc pl-5 text-sm text-blue-800 mt-2">
-                <li><strong>Windows:</strong> <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">Ctrl</kbd> + <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">P</kbd></li>
-                <li><strong>Mac:</strong> <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">⌘</kbd> + <kbd class="bg-white px-1.5 py-0.5 rounded border shadow-sm">P</kbd></li>
-            </ul>
-        </div>
-        <p class="text-sm text-gray-600 mb-6 italic">Set layout to <strong>Landscape</strong>.</p>
-        <div class="flex justify-end">
-            <button onclick="closeModal()" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow hover:bg-gray-300 font-medium transition">Got it</button>
-        </div>
+        <button class="modal-close" onclick="closeModal()">Got it</button>
     </div>
 </div>
 
 <script>
     function handlePrint() {
         try { window.print(); } catch(e) {}
-        setTimeout(() => { document.getElementById('print-modal').classList.remove('hidden'); }, 600);
+        setTimeout(() => document.getElementById('modal').classList.add('open'), 600);
     }
-    function closeModal() { document.getElementById('print-modal').classList.add('hidden'); }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); }
 </script>
 </body>
 </html>
